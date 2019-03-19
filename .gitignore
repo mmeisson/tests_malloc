@@ -1,0 +1,6 @@
+test_malloc
+.objs
+*.o
+*.d
+.*.swp
+.*.swo
