@@ -8,7 +8,10 @@ void		bt_push(backtrace bt, const char *msg)
 {
 	size_t		i;
 
-	for (i = 0; bt[i][0] != '\0'; i++) {}
+	if (bt)
+	{
+		for (i = 0; bt[i][0] != '\0'; i++) {}
 
-	strcpy(bt[i], msg);
+		strcpy(bt[i], msg);
+	}
 }

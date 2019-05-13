@@ -9,9 +9,7 @@ CFLAGS			= -O0 -Wall -Wextra
 
 VPATH			= ./srcs
 
-SRCS			= main.c
-
-SRCS			+= test_0.c
+SRCS			= test_0.c
 SRCS			+= test_1.c
 SRCS			+= test_2.c
 SRCS			+= test_3.c
@@ -29,6 +27,12 @@ SRCS			+= bt_push.c
 SRCS			+= bt_print.c
 SRCS			+= bt_pop.c
 
+ifeq ($(MALLOC_THREADED),THREADED)
+	SRCS		+= main_thread.c
+else
+	SRCS		+= main_fork.c
+endif
+
 INCS			= $(addprefix -I,$(INCS_PATHS))
 
 OBJS_PATH		= ./.objs/
@@ -43,7 +47,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -j8 -C ./printf/
-	$(CC) $^ -o $@ -L printf -lftprintf
+	$(CC) $^ -o $@ -L printf -lftprintf -lpthread
 
 $(OBJS_PATH)%.o: %.c Makefile
 	@mkdir -p $(OBJS_PATH)
